@@ -4,10 +4,14 @@ const port = 3000;
 
 const handlebars = require("express-handlebars");
 const modelData = require("./models/data");
+const e = require("express");
 
 app.use(express.static("public"));
 
 app.set("view engine", "hbs");
+
+// extract data from form in the POST request body.
+app.use(express.urlencoded({ extended: true }));
 
 app.engine(
   "hbs",
@@ -58,6 +62,45 @@ app.get("/product", function (req, res) {
 // LOGIN
 app.get("/login", function (req, res) {
   res.render("login");
+});
+
+app.post("/login", function (req, res) {
+  const username = req.body.username;
+  const password = req.body.password;
+  var usernameError = false;
+  var usernameErrorMessage = "";
+  var passwordError = false;
+  var passwordErrorMessage = "";
+
+  if (username) {
+    // validation
+  } else {
+    usernameError = true;
+    usernameErrorMessage = "Username cannot be blank!";
+  }
+
+  if (password) {
+    // validation
+  } else {
+    passwordError = true;
+    passwordErrorMessage = "Password cannot be blank!";
+  }
+
+  // Handle Errors
+  if (usernameError || passwordError) {
+    res.render("login", {
+      extraFormClasses: "invalid-form",
+      username: username,
+      usernameError: usernameError,
+      usernameErrorMessage: usernameErrorMessage,
+      password: password,
+      passwordError: passwordError,
+      passwordErrorMessage: passwordErrorMessage,
+    });
+  } else {
+    res.redirect("/");
+  }
+  //
 });
 
 // REGISTER
