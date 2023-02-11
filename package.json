@@ -20,7 +20,7 @@
     "nodemailer": "^6.4.10"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.20"
   },
   "nodemonConfig": {
     "ext": "hbs",
